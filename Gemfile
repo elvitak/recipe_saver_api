@@ -10,6 +10,10 @@ gem 'rack-cors'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 
 group :development, :test do
+  gem 'factory_bot'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers'
 end
 
 group :development do
