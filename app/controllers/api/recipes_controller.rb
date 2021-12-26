@@ -7,13 +7,22 @@ class Api::RecipesController < ApplicationController
   end
 
   def create
-    recipe = Recipe.create(params[:recipe].permit!)
-    render json: { recipe: recipe }, status: 201
+    recipe = Recipe.create(recipe_params)
+
+    if recipe.persisted?
+      render json: { recipe: recipe }, status: 201
+    else
+      render json: { message: recipe.errors.full_messages.to_sentence }, status: 422
+    end
   end
 
   private
 
   def validate_params_presence
     render json: { message: 'Missing params' }, status: 422 if params[:recipe].nil?
+  end
+
+  def recipe_params
+    params[:recipe].permit(:title, ingredients: [], instructions: [])
   end
 end

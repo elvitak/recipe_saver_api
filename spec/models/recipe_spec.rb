@@ -6,4 +6,6 @@ RSpec.describe Recipe, type: :model do
   it 'is expected to have a valid Factory' do
     expect(create(:recipe)).to be_valid
   end
+
+  it { is_expected.to validate_presence_of :title }
 end

@@ -40,5 +40,23 @@ describe 'POST /api/recipes' do
         expect(response_json['message']).to eq 'Missing params'
       end
     end
+
+    describe 'due to missing title' do
+      before do
+        post '/api/recipes',
+             params: {
+               recipe: {
+                 ingredients: ['sugar', 'egg whites', 'joy'],
+                 instructions: ['do some maggic', 'make it work']
+               }
+             }
+      end
+
+      it { is_expected.to have_http_status 422 }
+
+      it 'is expected to respond with an error message' do
+        expect(response_json['message']).to eq "Title can't be blank"
+      end
+    end
   end
 end

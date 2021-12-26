@@ -15,6 +15,6 @@ describe 'GET /api/recipes' do
   end
 
   it 'is expected to respond with a recipe' do
-    expect(response_json.first['title']).to eq 'I can override Factory values here'
+    expect(response_json['recipes'].first['title']).to eq 'I can override Factory values here'
   end
 end
