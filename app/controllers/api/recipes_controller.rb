@@ -16,6 +16,11 @@ class Api::RecipesController < ApplicationController
     end
   end
 
+  def show
+    recipe = Recipe.find(params['id'])
+    render json: { recipe: recipe }
+  end
+
   private
 
   def validate_params_presence
