@@ -29,5 +29,16 @@ describe 'POST /api/recipes' do
   end
 
   describe 'unsuccessfully' do
+    describe 'due to missing params' do
+      before do
+        post '/api/recipes', params: {}
+      end
+
+      it { is_expected.to have_http_status 422 }
+
+      it 'is expected to respond with an error message' do
+        expect(response_json['message']).to eq 'Missing params'
+      end
+    end
   end
 end
