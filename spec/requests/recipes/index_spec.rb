@@ -1,4 +1,4 @@
-describe 'GET /api/recipes' do
+describe 'GET /api/recipes', type: :request do
   subject { response }
   let!(:recipe) { create(:recipe, title: 'I can override Factory values here') }
 

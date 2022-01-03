@@ -1,4 +1,4 @@
-describe 'POST /api/recipes' do
+describe 'POST /api/recipes', type: :request do
   subject { response }
 
   describe 'successfully' do
@@ -18,6 +18,10 @@ describe 'POST /api/recipes' do
     end
 
     it { is_expected.to have_http_status 201 }
+
+    it 'is expected to create an instance of Recipe' do
+      expect(Recipe.last).to_not eq nil
+    end
 
     it 'is expected to return the new object with a title' do
       expect(response_json['recipe']['title']).to eq 'nom nom'
