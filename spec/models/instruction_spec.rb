@@ -1,6 +1,6 @@
 RSpec.describe Instruction, type: :model do
   describe 'Database table' do
-    it { is_expected.to have_db_column(:instruction).of_type(:string) }
+    it { is_expected.to have_db_column(:instruction).of_type(:text) }
   end
 
   describe 'Associations' do
@@ -10,7 +10,7 @@ RSpec.describe Instruction, type: :model do
 
   describe 'Factory' do
     it 'is expected to have a valid Factory' do
-      expect(create(:recipe)).to be_valid
+      expect(create(:instruction)).to be_valid
     end
   end
 end

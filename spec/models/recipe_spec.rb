@@ -1,8 +1,6 @@
 RSpec.describe Recipe, type: :model do
   describe 'Database table' do
     it { is_expected.to have_db_column(:title).of_type(:string) }
-    it { is_expected.to have_db_column(:ingredient_id).of_type(:integer) }
-    it { is_expected.to have_db_column(:instruction_id).of_type(:integer) }
   end
 
   describe 'Associations' do
