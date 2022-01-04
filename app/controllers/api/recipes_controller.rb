@@ -7,7 +7,8 @@ class Api::RecipesController < ApplicationController
   end
 
   def create
-    recipe = Recipe.create!(recipe_params)
+    recipe = Recipe.create(recipe_params)
+    binding.pry
 
     if recipe.persisted?
       render json: { recipe: recipe }, status: 201
@@ -28,6 +29,7 @@ class Api::RecipesController < ApplicationController
   end
 
   def recipe_params
-    params[:recipe].permit(:title)
+    params[:recipe].permit(:title, instructions_attributes: [[:instruction]],
+                                   ingredients_attributes: [%i[amount unit name]])
   end
 end
