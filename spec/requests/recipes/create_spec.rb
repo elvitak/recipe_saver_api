@@ -32,6 +32,10 @@ describe 'POST /api/recipes', type: :request do
       expect(response_json['ingredients']).to eq [{ 'amount' => 100, 'name' => 'sugar', 'unit' => 'grams' },
                                                   { 'amount' => 500, 'name' => 'chocolate', 'unit' => 'grams' }]
     end
+
+    it 'is expected to return the new object with recipe ingredients' do
+      expect(response_json['instructions']).to eq [{ 'instruction' => 'mix together' }, { 'instruction' => 'bake' }]
+    end
   end
 
   # describe 'unsuccessfully' do

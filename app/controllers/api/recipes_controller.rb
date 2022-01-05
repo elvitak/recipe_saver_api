@@ -11,7 +11,7 @@ class Api::RecipesController < ApplicationController
 
     if recipe.persisted?
       render json: recipe,
-             include: [ingredients: { only: %i[amount unit name] }, instructions: { only: %i[ingredient] }], status: 201
+             include: [ingredients: { only: %i[amount unit name] }, instructions: { only: %i[instruction] }], status: 201
     else
       render json: { message: recipe.errors.full_messages.to_sentence }, status: 422
     end
