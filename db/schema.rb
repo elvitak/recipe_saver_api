@@ -10,35 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_155624) do
-
+ActiveRecord::Schema.define(version: 20_220_103_155_624) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "ingredients", force: :cascade do |t|
-    t.bigint "recipe_id"
-    t.integer "amount"
-    t.string "unit"
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
+  create_table 'ingredients', force: :cascade do |t|
+    t.bigint 'recipe_id'
+    t.integer 'amount'
+    t.string 'unit'
+    t.string 'name'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['recipe_id'], name: 'index_ingredients_on_recipe_id'
   end
 
-  create_table "instructions", force: :cascade do |t|
-    t.bigint "recipe_id"
-    t.text "instruction"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["recipe_id"], name: "index_instructions_on_recipe_id"
+  create_table 'instructions', force: :cascade do |t|
+    t.bigint 'recipe_id'
+    t.text 'instruction'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['recipe_id'], name: 'index_instructions_on_recipe_id'
   end
 
-  create_table "recipes", force: :cascade do |t|
-    t.string "title"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'recipes', force: :cascade do |t|
+    t.string 'title'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  add_foreign_key "ingredients", "recipes"
-  add_foreign_key "instructions", "recipes"
+  add_foreign_key 'ingredients', 'recipes'
+  add_foreign_key 'instructions', 'recipes'
 end

@@ -8,10 +8,10 @@ class Api::RecipesController < ApplicationController
 
   def create
     recipe = Recipe.create(recipe_params)
-    binding.pry
 
     if recipe.persisted?
-      render json: { recipe: recipe }, status: 201
+      render json: recipe,
+             include: [ingredients: { only: %i[amount unit name] }, instructions: { only: %i[ingredient] }], status: 201
     else
       render json: { message: recipe.errors.full_messages.to_sentence }, status: 422
     end

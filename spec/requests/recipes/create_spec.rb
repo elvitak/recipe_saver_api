@@ -7,8 +7,8 @@ describe 'POST /api/recipes', type: :request do
            params: {
              recipe: {
                title: 'nom nom',
-               ingredients_attributes: [{ amount: 100, unit: 'grams', name: 'sugar' },
-                                        { amount: 500, unit: 'grams', name: 'chocolate' }],
+               ingredients_attributes: [{  amount: 100, unit: 'grams', name: 'sugar' },
+                                        {  amount: 500, unit: 'grams', name: 'chocolate' }],
                instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake' }]
              }
            }
@@ -25,13 +25,12 @@ describe 'POST /api/recipes', type: :request do
     end
 
     it 'is expected to return the new object with a title' do
-      binding.pry
-      expect(response_json['recipe']['title']).to eq 'nom nom'
+      expect(response_json['title']).to eq 'nom nom'
     end
 
     it 'is expected to return the new object with recipe ingredients' do
-      expect(response_json['recipe']['ingredients']).to eq [{ amount: 100, unit: 'grams', name: 'sugar' },
-                                                            { amount: 500, unit: 'grams', name: 'chocolate' }]
+      expect(response_json['ingredients']).to eq [{ 'amount' => 100, 'name' => 'sugar', 'unit' => 'grams' },
+                                                  { 'amount' => 500, 'name' => 'chocolate', 'unit' => 'grams' }]
     end
   end
 
