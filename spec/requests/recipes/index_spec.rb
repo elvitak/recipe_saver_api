@@ -1,6 +1,7 @@
 describe 'GET /api/recipes', type: :request do
   subject { response }
-  let!(:recipe) { create(:recipe, title: 'I can override Factory values here') }
+  let!(:recipe1) { create(:recipe, title: 'I can override Factory values here') }
+  let!(:recipe2) { create(:recipe, title: 'Yummy pancakes') }
 
   before do
     get '/api/recipes'
@@ -16,5 +17,9 @@ describe 'GET /api/recipes', type: :request do
 
   it 'is expected to respond with a recipe' do
     expect(response_json['recipes'].first['title']).to eq 'I can override Factory values here'
+  end
+
+  it 'is expected to respond with a recipe' do
+    expect(response_json['recipes'].size).to eq 2
   end
 end
