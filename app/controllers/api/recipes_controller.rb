@@ -19,7 +19,8 @@ class Api::RecipesController < ApplicationController
 
   def show
     recipe = Recipe.find(params['id'])
-    render json: { recipe: recipe }
+    render json: { recipe: recipe },
+           include: [ingredients: { only: %i[amount unit name] }, instructions: { only: %i[instruction] }]
   end
 
   private

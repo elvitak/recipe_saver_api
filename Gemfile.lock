@@ -92,7 +92,7 @@ GEM
     minitest (5.15.0)
     msgpack (1.4.2)
     nio4r (2.5.8)
-    nokogiri (1.12.5-x86_64-darwin)
+    nokogiri (1.13.1-x86_64-darwin)
       racc (~> 1.4)
     pg (1.2.3)
     pry (0.14.1)
@@ -140,7 +140,7 @@ GEM
       ffi (~> 1.0)
     rspec-core (3.10.1)
       rspec-support (~> 3.10.0)
-    rspec-expectations (3.10.1)
+    rspec-expectations (3.10.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-mocks (3.10.2)
@@ -165,15 +165,16 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    thor (1.1.0)
+    thor (1.2.1)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.5.1)
+    zeitwerk (2.5.3)
 
 PLATFORMS
+  x86_64-darwin-19
   x86_64-darwin-21
 
 DEPENDENCIES
