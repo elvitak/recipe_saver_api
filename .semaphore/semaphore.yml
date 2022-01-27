@@ -21,10 +21,10 @@ blocks:
             - 'bundle exec rails db:create db:migrate'
             - bundle exec rspec
       env_vars:
-        - name: CC_TEST_REPORTER_ID
-          value: 9f361c2a574cee68b0d88835ac691bdc466997807362e978b94ddab63bdf71e6
         - name: RAILS_ENV
           value: test
+        - name: CC_TEST_REPORTER_ID
+          value: 9f361c2a574cee68b0d88835ac691bdc466997807362e978b94ddab63bdf71e6
       epilogue:
         always:
           commands:
