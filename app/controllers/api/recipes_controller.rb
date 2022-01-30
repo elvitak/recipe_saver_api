@@ -12,7 +12,7 @@ class Api::RecipesController < ApplicationController
     if recipe.persisted?
       render_message('Recipe was created successfully', 201)
     else
-      render json: { message: recipe.errors.full_messages.to_sentence }, status: 422
+      render_message(recipe.errors.full_messages.to_sentence, 422)
     end
   end
 
