@@ -42,4 +42,18 @@ RSpec.describe 'GET/api/recipes/:id', type: :request do
       }, { 'amount' => 400, 'name' => 'milk', 'unit' => 'ml' }]
     end
   end
+
+  describe 'unsuccessfully - id not found' do
+    before do
+      get '/api/recipes/wrong_thing'
+    end
+
+    it 'is expected to return a 404 status' do
+      expect(response).to have_http_status 404
+    end
+
+    it 'is expected to return an error message' do
+      expect(response_json['message']).to eq 'Recipe not found'
+    end
+  end
 end
