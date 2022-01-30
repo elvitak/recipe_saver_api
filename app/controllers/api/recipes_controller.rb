@@ -3,23 +3,29 @@ class Api::RecipesController < ApplicationController
 
   def index
     recipes = Recipe.all
-    render json: recipes, each_serializer: Recipe::IndexSerializer
+
+    if recipes.any?
+      render json: recipes, each_serializer: Recipe::IndexSerializer
+    else
+      render_message('Recipes not found', 404)
+    end
   end
 
   def create
     recipe = Recipe.create(recipe_params)
 
     if recipe.persisted?
-      render json: { message: 'Recipe was created successfully' },
-             status: 201
+      render_message('Recipe was created successfully', 201)
     else
-      render json: { message: recipe.errors.full_messages.to_sentence }, status: 422
+      render_message(recipe.errors.full_messages.to_sentence, 422)
     end
   end
 
   def show
     recipe = Recipe.find(params['id'])
     render json: recipe, serializer: Recipe::ShowSerializer
+  rescue ActiveRecord::RecordNotFound => e
+    render_message('Recipe not found', 404)
   end
 
   private
@@ -30,5 +36,9 @@ class Api::RecipesController < ApplicationController
 
   def recipe_params
     params[:recipe].permit(:title, instructions: [], ingredients: [])
+  end
+
+  def render_message(message, status)
+    render json: { message: message }, status: status
   end
 end
