@@ -10,8 +10,8 @@ class Api::RecipesController < ApplicationController
     recipe = Recipe.create(recipe_params)
 
     if recipe.persisted?
-      render json: recipe,
-             include: [ingredients: { only: %i[amount unit name] }, instructions: { only: %i[instruction] }], status: 201
+      render json: { message: 'Recipe was created successfully' },
+             status: 201
     else
       render json: { message: recipe.errors.full_messages.to_sentence }, status: 422
     end
@@ -29,7 +29,6 @@ class Api::RecipesController < ApplicationController
   end
 
   def recipe_params
-    params[:recipe].permit(:title, instructions_attributes: [[:instruction]],
-                                   ingredients_attributes: [%i[amount unit name]])
+    params[:recipe].permit(:title, instructions: [], ingredients: [])
   end
 end
