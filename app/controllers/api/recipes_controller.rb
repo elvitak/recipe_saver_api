@@ -3,7 +3,12 @@ class Api::RecipesController < ApplicationController
 
   def index
     recipes = Recipe.all
-    render json: recipes, each_serializer: Recipe::IndexSerializer
+
+    if recipes.any?
+      render json: recipes, each_serializer: Recipe::IndexSerializer
+    else
+      render_message('Recipes not found', 404)
+    end
   end
 
   def create
