@@ -60,5 +60,43 @@ describe 'POST /api/recipes', type: :request do
         expect(response_json['message']).to eq "Title can't be blank"
       end
     end
+
+    describe 'due to missing instructions' do
+      before do
+        post '/api/recipes',
+             params: {
+               recipe: {
+                 title: 'nom nom',
+                 ingredients: [{ amount: 100, unit: 'grams', name: 'sugar' },
+                               { amount: 500, unit: 'grams', name: 'chocolate' }]
+
+               }
+             }
+      end
+
+      it { is_expected.to have_http_status 422 }
+
+      it 'is expected to respond with an error message' do
+        expect(response_json['message']).to eq "Instructions can't be blank"
+      end
+    end
+
+    describe 'due to missing ingredients' do
+      before do
+        post '/api/recipes',
+             params: {
+               recipe: {
+                 title: 'nom nom',
+                 instructions: [{ instruction: 'mix together' }, { instruction: 'bake' }]
+               }
+             }
+      end
+
+      it { is_expected.to have_http_status 422 }
+
+      it 'is expected to respond with an error message' do
+        expect(response_json['message']).to eq "Ingredients can't be blank"
+      end
+    end
   end
 end
