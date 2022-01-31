@@ -31,7 +31,15 @@ class Api::RecipesController < ApplicationController
   private
 
   def validate_params_presence
-    render json: { message: 'Missing params' }, status: 422 if params[:recipe].nil?
+    if params[:recipe].nil?
+      render_message('Missing params', 422)
+    elsif params[:recipe][:title].nil?
+      render_message("Title can't be blank", 422)
+    elsif params[:recipe][:instructions].nil?
+      render_message("Instructions can't be blank", 422)
+    elsif params[:recipe][:ingredients].nil?
+      render_message("Ingredients can't be blank", 422)
+    end
   end
 
   def recipe_params
