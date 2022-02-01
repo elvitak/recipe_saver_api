@@ -28,6 +28,14 @@ class Api::RecipesController < ApplicationController
     render_message('Recipe not found', 404)
   end
 
+  def destroy
+    recipe = Recipe.find(params['id'])
+    recipe.destroy
+    render_message('You successfully deleted recipe', 202)
+  rescue ActiveRecord::RecordNotFound => e
+    render_message('Your request can not be processed at this time', 422)
+  end
+
   private
 
   def validate_params_presence
