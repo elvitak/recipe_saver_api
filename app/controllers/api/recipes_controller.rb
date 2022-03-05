@@ -1,5 +1,6 @@
 class Api::RecipesController < ApplicationController
   before_action :validate_params_presence, only: [:create]
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404_error
 
   def index
     recipes = Recipe.all
@@ -62,5 +63,9 @@ class Api::RecipesController < ApplicationController
 
   def render_message(message, status)
     render json: { message: message }, status: status
+  end
+
+  def render_404_error
+    render json: { message: 'Recipe not found' }, status: 404
   end
 end
