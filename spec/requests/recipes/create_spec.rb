@@ -7,9 +7,9 @@ describe 'POST /api/recipes', type: :request do
            params: {
              recipe: {
                title: 'nom nom',
-               ingredients: [{  amount: 100, unit: 'grams', name: 'sugar' },
-                             { amount: 500, unit: 'grams', name: 'chocolate' }],
-               instructions: [{ instruction: 'mix together' }, { instruction: 'bake' }]
+               ingredients_attributes: [{  amount: 100, unit: 'grams', name: 'sugar' },
+                                        { amount: 500, unit: 'grams', name: 'chocolate' }],
+               instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake' }]
              }
            }
     end
@@ -47,9 +47,9 @@ describe 'POST /api/recipes', type: :request do
         post '/api/recipes',
              params: {
                recipe: {
-                 ingredients: [{ amount: 100, unit: 'grams', name: 'sugar' },
-                               { amount: 500, unit: 'grams', name: 'chocolate' }],
-                 instructions: [{ instruction: 'mix together' }, { instruction: 'bake' }]
+                 ingredients_attributes: [{ amount: 100, unit: 'grams', name: 'sugar' },
+                                          { amount: 500, unit: 'grams', name: 'chocolate' }],
+                 instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake' }]
                }
              }
       end
@@ -67,8 +67,8 @@ describe 'POST /api/recipes', type: :request do
              params: {
                recipe: {
                  title: 'nom nom',
-                 ingredients: [{ amount: 100, unit: 'grams', name: 'sugar' },
-                               { amount: 500, unit: 'grams', name: 'chocolate' }]
+                 ingredients_attributes: [{ amount: 100, unit: 'grams', name: 'sugar' },
+                                          { amount: 500, unit: 'grams', name: 'chocolate' }]
 
                }
              }
@@ -87,7 +87,7 @@ describe 'POST /api/recipes', type: :request do
              params: {
                recipe: {
                  title: 'nom nom',
-                 instructions: [{ instruction: 'mix together' }, { instruction: 'bake' }]
+                 instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake' }]
                }
              }
       end
