@@ -43,15 +43,16 @@ class Api::RecipesController < ApplicationController
       render_message('Missing params', 422)
     elsif params[:recipe][:title].nil?
       render_message("Title can't be blank", 422)
-    elsif params[:recipe][:instructions].nil?
+    elsif params[:recipe][:instructions_attributes].nil?
       render_message("Instructions can't be blank", 422)
-    elsif params[:recipe][:ingredients].nil?
+    elsif params[:recipe][:ingredients_attributes].nil?
       render_message("Ingredients can't be blank", 422)
     end
   end
 
   def recipe_params
-    params[:recipe].permit(:title, instructions: [], ingredients: [])
+    params[:recipe].permit(:title, instructions_attributes: [:instruction],
+                                   ingredients_attributes: %i[amount unit name])
   end
 
   def render_message(message, status)
