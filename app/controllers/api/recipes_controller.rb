@@ -36,6 +36,11 @@ class Api::RecipesController < ApplicationController
     render_message('Your request can not be processed at this time', 422)
   end
 
+  def update
+    recipe = Recipe.find(params[:id])
+    render json: { message: 'Your recipe was updated.' }
+  end
+
   private
 
   def validate_params_presence
