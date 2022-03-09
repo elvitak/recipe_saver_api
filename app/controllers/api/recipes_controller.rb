@@ -8,7 +8,7 @@ class Api::RecipesController < ApplicationController
     if recipes.any?
       render json: recipes, each_serializer: Recipe::IndexSerializer
     else
-      render_message('Recipes not found', 404)
+      render json: { recipes: '[]' }
     end
   end
 
