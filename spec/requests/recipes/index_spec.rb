@@ -4,12 +4,12 @@ describe 'GET /api/recipes', type: :request do
       get '/api/recipes'
     end
 
-    it 'is expected to respond with status 404' do
-      expect(response.status).to eq 404
+    it 'is expected to respond with status 200' do
+      expect(response.status).to eq 200
     end
 
-    it 'is expected to return an error message' do
-      expect(response_json['message']).to eq 'Recipes not found'
+    it 'is expected to return an empty array' do
+      expect(response_json['recipes']).to eq '[]'
     end
   end
   describe 'successfully' do
