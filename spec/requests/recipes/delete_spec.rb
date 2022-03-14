@@ -20,11 +20,11 @@ RSpec.describe 'DELETE /api/recipes', type: :request do
     before { delete '/api/recipes/non_exisiting_recipe' }
 
     it 'is expected to respond with status 422' do
-      expect(response.status).to eq 422
+      expect(response.status).to eq 404
     end
 
     it 'is expected to return an error message' do
-      expect(response_json['message']).to eq('Your request can not be processed at this time')
+      expect(response_json['message']).to eq('Recipe not found')
     end
   end
 end
