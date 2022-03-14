@@ -1,5 +1,5 @@
 class Api::RecipesController < ApplicationController
-  before_action :validate_params_presence, only: [:create]
+  before_action :validate_params_presence, only: %i[create update]
   rescue_from ActiveRecord::RecordNotFound, with: :render_404_error
 
   def index
@@ -39,6 +39,7 @@ class Api::RecipesController < ApplicationController
 
   def update
     recipe = Recipe.find(params[:id])
+    recipe.update(recipe_params)
     render json: { message: 'Your recipe was updated.' }
   end
 
