@@ -1,5 +1,6 @@
 class Api::RecipesController < ApplicationController
   before_action :validate_params_presence, only: %i[create update]
+  before_action :find_recipe, only: %i[show destroy update]
   rescue_from ActiveRecord::RecordNotFound, with: :render_404_error
 
   def index
@@ -23,23 +24,18 @@ class Api::RecipesController < ApplicationController
   end
 
   def show
-    recipe = Recipe.find(params['id'])
-    render json: recipe, serializer: Recipe::ShowSerializer
+    render json: @recipe, serializer: Recipe::ShowSerializer
   rescue ActiveRecord::RecordNotFound => e
     render_message('Recipe not found', 404)
   end
 
   def destroy
-    recipe = Recipe.find(params['id'])
-    recipe.destroy
+    @recipe.destroy
     render_message('You successfully deleted recipe', 202)
-  rescue ActiveRecord::RecordNotFound => e
-    render_message('Your request can not be processed at this time', 422)
   end
 
   def update
-    recipe = Recipe.find(params[:id])
-    recipe.update(recipe_params)
+    @recipe.update(recipe_params)
     render json: { message: 'Your recipe was updated.' }
   end
 
@@ -55,6 +51,10 @@ class Api::RecipesController < ApplicationController
     elsif params[:recipe][:ingredients_attributes].nil?
       render_message("Ingredients can't be blank", 422)
     end
+  end
+
+  def find_recipe
+    @recipe = Recipe.find(params[:id])
   end
 
   def recipe_params
