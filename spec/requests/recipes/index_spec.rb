@@ -37,4 +37,25 @@ describe 'GET /api/recipes', type: :request do
       expect(response_json['recipes'].size).to eq 2
     end
   end
+
+  describe 'successfully - with random recipes' do
+    subject { response }
+    let!(:recipe1) { create(:recipe, title: 'Cake') }
+    let!(:recipe2) { create(:recipe, title: 'Meat') }
+    let!(:recipe3) { create(:recipe, title: 'Soup') }
+
+    before do
+      get '/api/recipes', params: {
+        random_sample_size: 2
+      }
+    end
+
+    it 'is expected to respond with status 200' do
+      expect(subject.status).to eq 200
+    end
+
+    it 'is expected to respond with 2 recipe' do
+      expect(response_json.size).to eq 2
+    end
+  end
 end
