@@ -10,7 +10,7 @@ class Api::RecipesController < ApplicationController
       random_sample_size = params['random_sample_size'].to_i
       render json: recipes.sample(random_sample_size)
     else
-      render json: { recipes: '[]' }
+      render json: recipes, each_serializer: Recipe::IndexSerializer
     end
   end
 
