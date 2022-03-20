@@ -9,9 +9,10 @@ describe 'GET /api/recipes', type: :request do
     end
 
     it 'is expected to return an empty array' do
-      expect(response_json['recipes']).to eq '[]'
+      expect(response_json['recipes']).to eq []
     end
   end
+
   describe 'successfully' do
     subject { response }
     let!(:recipe1) { create(:recipe, title: 'I can override Factory values here') }
