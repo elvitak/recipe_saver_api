@@ -6,8 +6,9 @@ class Api::RecipesController < ApplicationController
   def index
     recipes = Recipe.all
 
-    if recipes.any?
-      render json: recipes, each_serializer: Recipe::IndexSerializer
+    if params.include?('random_sample_size')
+      random_sample_size = params['random_sample_size'].to_i
+      render json: recipes.sample(random_sample_size)
     else
       render json: { recipes: '[]' }
     end
