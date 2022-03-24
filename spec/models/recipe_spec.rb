@@ -18,8 +18,8 @@ RSpec.describe Recipe, type: :model do
   describe 'Image' do
     it 'is expected to be attached' do
       subject.image.attach(
-        io: File.open(fixture_path + 'carbonara.jpeg'),
-        filename: 'carbonara.jpeg',
+        io: File.open(fixture_path + '/pancakes.jpeg'),
+        filename: 'pancakes.jpeg',
         content_type: 'image/jpeg'
       )
       expect(subject.image).to be_attached
