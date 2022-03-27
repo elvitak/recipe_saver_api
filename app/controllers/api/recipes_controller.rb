@@ -17,7 +17,7 @@ class Api::RecipesController < ApplicationController
   def create
     recipe = Recipe.create(recipe_params)
 
-    if recipe.persisted?
+    if recipe.persisted? && attach_image(recipe)
       render_message('Recipe was created successfully', 201)
     else
       render_message(recipe.errors.full_messages.to_sentence, 422)
@@ -69,5 +69,9 @@ class Api::RecipesController < ApplicationController
 
   def render_404_error
     render json: { message: 'Recipe not found' }, status: 404
+  end
+
+  def attach_image(recipe)
+    DecodeService.attach_image(recipe, params[:recipe][:image])
   end
 end
