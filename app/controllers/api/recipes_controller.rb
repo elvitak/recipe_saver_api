@@ -60,7 +60,7 @@ class Api::RecipesController < ApplicationController
 
   def recipe_params
     params[:recipe].permit(:title, instructions_attributes: [:instruction],
-                                   ingredients_attributes: %i[amount unit name])
+                                   ingredients_attributes: %i[id amount unit name])
   end
 
   def render_message(message, status)
