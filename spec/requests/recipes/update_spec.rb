@@ -1,5 +1,12 @@
 RSpec.describe 'PUT /api/recipes/:id', type: :request do
-  let(:recipe) { create(:recipe) }
+  let!(:ingredient1) do
+    create(:ingredient, {
+             "amount": 100,
+             "unit": 'ml',
+             "name": 'milk'
+           })
+  end
+  let(:recipe) { create(:recipe, ingredients: [ingredient1]) }
 
   subject { response }
 
@@ -8,7 +15,8 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
       put "/api/recipes/#{recipe.id}", params: {
         recipe: {
           title: 'new recipe',
-          ingredients_attributes: [{  amount: 10, unit: 'grams', name: 'sugar' },
+          ingredients_attributes: [{ id: ingredient1.id, amount: 100, unit: 'ml', name: 'milk' },
+                                   { amount: 10, unit: 'grams', name: 'sugar' },
                                    { amount: 500, unit: 'grams', name: 'chocolate' }],
           instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake 20 min' }]
         }
@@ -24,6 +32,17 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
     it 'is expected to create an instance of Recipe' do
       expect(Recipe.last.title).to eq 'new recipe'
     end
+
+    it 'is expected to create an instance of Recipe with right ingredients' do
+      ingredients = Recipe.last.ingredients.map do |i|
+        { amount: i.amount, unit: i.unit, name: i.name }
+      end
+      expect(ingredients).to eq [
+        { amount: 100, unit: 'ml', name: 'milk' },
+        { amount: 10, unit: 'grams', name: 'sugar' },
+        { amount: 500, unit: 'grams', name: 'chocolate' }
+      ]
+    end
   end
 
   describe 'unsuccessfully' do
@@ -31,9 +50,14 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
       before do
         put '/api/recipes/9999999', params: { recipe: {
           title: 'new recipe',
-          ingredients_attributes: [{  amount: 10, unit: 'grams', name: 'sugar' },
-                                   { amount: 500, unit: 'grams', name: 'chocolate' }],
-          instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake 20 min' }]
+          ingredients_attributes: [
+            { amount: 10, unit: 'grams', name: 'sugar' },
+            { amount: 500, unit: 'grams', name: 'chocolate' }
+          ],
+          instructions_attributes: [
+            { instruction: 'mix together' },
+            { instruction: 'bake 20 min' }
+          ]
         } }
       end
 
@@ -47,9 +71,14 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
     describe 'due to missing title' do
       before do
         put "/api/recipes/#{recipe.id}", params: { recipe: {
-          ingredients_attributes: [{  amount: 10, unit: 'grams', name: 'sugar' },
-                                   { amount: 500, unit: 'grams', name: 'chocolate' }],
-          instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake 20 min' }]
+          ingredients_attributes: [
+            { amount: 10, unit: 'grams', name: 'sugar' },
+            { amount: 500, unit: 'grams', name: 'chocolate' }
+          ],
+          instructions_attributes: [
+            { instruction: 'mix together' },
+            { instruction: 'bake 20 min' }
+          ]
         } }
       end
 
