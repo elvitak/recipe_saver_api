@@ -6,7 +6,12 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
              "name": 'milk'
            })
   end
-  let(:recipe) { create(:recipe, ingredients: [ingredient1]) }
+  let!(:instruction1) do
+    create(:instruction, {
+             "instruction": 'mix together'
+           })
+  end
+  let(:recipe) { create(:recipe, ingredients: [ingredient1], instructions: [instruction1]) }
 
   subject { response }
 
@@ -18,7 +23,8 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
           ingredients_attributes: [{ id: ingredient1.id, amount: 100, unit: 'ml', name: 'milk' },
                                    { amount: 10, unit: 'grams', name: 'sugar' },
                                    { amount: 500, unit: 'grams', name: 'chocolate' }],
-          instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake 20 min' }]
+          instructions_attributes: [{ id: instruction1.id, instruction: 'mix together' },
+                                    { instruction: 'bake 20 min' }]
         }
       }
     end
@@ -41,6 +47,16 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
         { amount: 100, unit: 'ml', name: 'milk' },
         { amount: 10, unit: 'grams', name: 'sugar' },
         { amount: 500, unit: 'grams', name: 'chocolate' }
+      ]
+    end
+
+    it 'is expected to create an instance of Recipe with right instructions' do
+      instructions = Recipe.last.instructions.map do |i|
+        { instruction: i.instruction }
+      end
+      expect(instructions).to eq [
+        { instruction: 'mix together' },
+        { instruction: 'bake 20 min' }
       ]
     end
   end
