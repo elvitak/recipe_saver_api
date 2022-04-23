@@ -14,6 +14,7 @@ RSpec.describe Ingredient::ShowSerializer, type: :serializer do
   it 'is expected to contain keys with specific data types' do
     expect(subject).to match(
       'ingredient' => {
+        'id' => an_instance_of(Integer),
         'amount' => an_instance_of(Integer),
         'unit' => an_instance_of(String),
         'name' => an_instance_of(String)
