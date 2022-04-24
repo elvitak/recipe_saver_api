@@ -1,3 +1,3 @@
 class Instruction::ShowSerializer < ActiveModel::Serializer
-  attributes :instruction
+  attributes :id, :instruction
 end

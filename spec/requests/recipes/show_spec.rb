@@ -38,8 +38,8 @@ RSpec.describe 'GET/api/recipes/:id', type: :request do
 
     it 'is expected to return the requested recipes ingredients' do
       expect(response_json['recipe']['ingredients']).to eq [{
-        'amount' => 100, 'unit' => 'grams', 'name' => 'sugar'
-      }, { 'amount' => 400, 'name' => 'milk', 'unit' => 'ml' }]
+        'id' => ingredient1.id, 'amount' => 100, 'unit' => 'grams', 'name' => 'sugar'
+      }, { 'id' => ingredient2.id, 'amount' => 400, 'name' => 'milk', 'unit' => 'ml' }]
     end
   end
 
