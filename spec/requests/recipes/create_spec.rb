@@ -35,6 +35,26 @@ describe 'POST /api/recipes', type: :request do
     end
   end
 
+  describe 'with missing image' do
+    before do
+      post '/api/recipes',
+           params: {
+             recipe: {
+               title: 'nom nom',
+               ingredients_attributes: [{  amount: 100, unit: 'grams', name: 'sugar' },
+                                        { amount: 500, unit: 'grams', name: 'chocolate' }],
+               instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake' }]
+             }
+           }
+    end
+
+    it { is_expected.to have_http_status 201 }
+
+    it 'is expected to respond with an error message' do
+      expect(response_json['message']).to eq 'Recipe was created successfully'
+    end
+  end
+
   describe 'unsuccessfully' do
     describe 'due to missing params' do
       before do
