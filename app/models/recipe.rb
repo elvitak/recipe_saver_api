@@ -16,7 +16,7 @@ class Recipe < ApplicationRecord
       begin
         image.url(expires_in: 1.hour, disposition: 'inline')
       rescue URI::InvalidURIError => e
-        Rails.logger.warning('Error, probably invalid upload: ' + e.to_s)
+        Rails.logger.warn('Error, probably invalid upload: ' + e.to_s)
         nil
       end
     end
