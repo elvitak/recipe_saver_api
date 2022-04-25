@@ -1,3 +1,5 @@
+Rails.logger = Logger.new(STDOUT)
+
 class Recipe < ApplicationRecord
   validates_presence_of :title
   has_many :instructions
@@ -6,6 +8,9 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :instructions, :ingredients
 
   def image_serialized
+    Rails.logger.info('record: ' + attributes.to_s)
+    Rails.logger.info('image data: ' + image.to_s)
+    Rails.logger.info('Image.attached?: ' + image.attached?.to_s)
     if !image.attached?
       nil
     elsif Rails.env.test?
