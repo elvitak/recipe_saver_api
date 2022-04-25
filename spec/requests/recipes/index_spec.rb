@@ -15,7 +15,7 @@ describe 'GET /api/recipes', type: :request do
 
   describe 'successfully' do
     subject { response }
-    let!(:recipe1) { create(:recipe, title: 'I can override Factory values here') }
+    let!(:recipe1) { create(:recipe, title: 'I can override Factory values here', with_image: false) }
     let!(:recipe2) { create(:recipe, title: 'Yummy pancakes') }
 
     before do
@@ -24,10 +24,6 @@ describe 'GET /api/recipes', type: :request do
 
     it 'is expected to respond with status 200' do
       expect(subject.status).to eq 200
-    end
-
-    it 'is expected to respond with a recipe' do
-      expect(response_json.size).to eq 1
     end
 
     it 'is expected to respond with a recipe' do

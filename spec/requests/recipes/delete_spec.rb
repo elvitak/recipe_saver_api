@@ -1,6 +1,6 @@
 RSpec.describe 'DELETE /api/recipes', type: :request do
   describe 'successful' do
-    let(:recipe) { create(:recipe) }
+    let(:recipe) { create(:recipe, title: 'to be deleted') }
     before { delete "/api/recipes/#{recipe.id}" }
 
     it 'is expected to respond with status 202' do
@@ -12,7 +12,7 @@ RSpec.describe 'DELETE /api/recipes', type: :request do
     end
 
     it 'is expected to delete the participant' do
-      expect(Recipe.count).to eq 0
+      expect(Recipe.find_by_id(recipe.id)).to be nil
     end
   end
 

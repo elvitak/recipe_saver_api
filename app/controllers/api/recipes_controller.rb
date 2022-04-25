@@ -72,6 +72,10 @@ class Api::RecipesController < ApplicationController
   end
 
   def attach_image(recipe)
-    DecodeService.attach_image(recipe, params[:recipe][:image])
+    if params[:recipe][:image].nil?
+      true
+    else
+      DecodeService.attach_image(recipe, params[:recipe][:image])
+    end
   end
 end
