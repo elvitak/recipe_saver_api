@@ -23,9 +23,9 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
           ingredients_attributes: [{ id: ingredient1.id, amount: 100, unit: 'ml', name: 'milk' },
                                    { amount: 10, unit: 'grams', name: 'sugar' },
                                    { amount: 500, unit: 'grams', name: 'chocolate' }],
-          instructions_attributes: [{ instruction: 'mix together' },
-                                    { instruction: 'bake 20 min' },
-                                    { id: instruction1.id, _destroy: true }]
+          instructions_attributes: [{ id: instruction1.id, _destroy: true },
+                                    { instruction: 'mix together' },
+                                    { instruction: 'bake 20 min' }]
         }
       }
     end
