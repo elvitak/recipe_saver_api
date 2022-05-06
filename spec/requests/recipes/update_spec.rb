@@ -56,8 +56,8 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
         { instruction: i.instruction }
       end
       expect(instructions).to eq [
-        { instruction: 'bake 20 min' },
-        { instruction: 'mix together' }
+        { instruction: 'mix together' },
+        { instruction: 'bake 20 min' }
       ]
     end
   end
