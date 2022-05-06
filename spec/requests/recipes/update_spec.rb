@@ -23,7 +23,8 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
           ingredients_attributes: [{ id: ingredient1.id, amount: 100, unit: 'ml', name: 'milk' },
                                    { amount: 10, unit: 'grams', name: 'sugar' },
                                    { amount: 500, unit: 'grams', name: 'chocolate' }],
-          instructions_attributes: [{ id: instruction1.id, instruction: 'mix together' },
+          instructions_attributes: [{ id: instruction1.id, _destroy: true },
+                                    { instruction: 'mix together' },
                                     { instruction: 'bake 20 min' }]
         }
       }
@@ -35,11 +36,11 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
       expect(response_json['message']).to eq 'Your recipe was updated.'
     end
 
-    it 'is expected to create an instance of Recipe' do
+    it 'is expected to update an instance of Recipe' do
       expect(Recipe.last.title).to eq 'new recipe'
     end
 
-    it 'is expected to create an instance of Recipe with right ingredients' do
+    it 'is expected to update an instance of Recipe with right ingredients' do
       ingredients = Recipe.last.ingredients.map do |i|
         { amount: i.amount, unit: i.unit, name: i.name }
       end
@@ -50,7 +51,7 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
       ]
     end
 
-    it 'is expected to create an instance of Recipe with right instructions' do
+    it 'is expected to update an instance of Recipe with right instructions' do
       instructions = Recipe.last.instructions.map do |i|
         { instruction: i.instruction }
       end
