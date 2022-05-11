@@ -7,11 +7,21 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
            })
   end
   let!(:instruction1) do
-    create(:instruction, {
-             "instruction": 'mix together'
-           })
+    create(:instruction, { "instruction": 'mix together' })
   end
-  let(:recipe) { create(:recipe, ingredients: [ingredient1], instructions: [instruction1]) }
+  let!(:instruction2) do
+    create(:instruction, { "instruction": 'mix together' })
+  end
+  let!(:instruction3) do
+    create(:instruction, { "instruction": 'mix together' })
+  end
+  let(:recipe) do
+    create(
+      :recipe,
+      ingredients: [ingredient1],
+      instructions: [instruction1, instruction2, instruction3]
+    )
+  end
 
   subject { response }
 
@@ -20,12 +30,18 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
       put "/api/recipes/#{recipe.id}", params: {
         recipe: {
           title: 'new recipe',
-          ingredients_attributes: [{ id: ingredient1.id, amount: 100, unit: 'ml', name: 'milk' },
-                                   { amount: 10, unit: 'grams', name: 'sugar' },
-                                   { amount: 500, unit: 'grams', name: 'chocolate' }],
-          instructions_attributes: [{ id: instruction1.id, _destroy: true },
-                                    { instruction: 'mix together' },
-                                    { instruction: 'bake 20 min' }]
+          ingredients_attributes: [
+            { id: ingredient1.id, amount: 100, unit: 'ml', name: 'milk' },
+            { amount: 10, unit: 'grams', name: 'sugar' },
+            { amount: 500, unit: 'grams', name: 'chocolate' }
+          ],
+          instructions_attributes: [
+            { instruction: 'bake 20 min' },
+            { instruction: 'mix together' },
+            { id: instruction1.id, _destroy: true },
+            { id: instruction2.id, _destroy: true },
+            { id: instruction3.id, _destroy: true }
+          ]
         }
       }
     end

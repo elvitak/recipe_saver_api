@@ -36,7 +36,10 @@ class Api::RecipesController < ApplicationController
   end
 
   def update
+    Rails.logger.info('recipe params: ' + recipe_params.to_s)
     @recipe.update(recipe_params)
+    Rails.logger.info('recipe updated: ' + Recipe.find(params[:id]).instructions.pluck(:instructions).to_s)
+
     render json: { message: 'Your recipe was updated.' }
   end
 
@@ -59,8 +62,11 @@ class Api::RecipesController < ApplicationController
   end
 
   def recipe_params
-    params[:recipe].permit(:title, instructions_attributes: %i[id instruction],
-                                   ingredients_attributes: %i[id amount unit name])
+    params[:recipe].permit(
+      :title,
+      instructions_attributes: %i[id instruction _destroy],
+      ingredients_attributes: %i[id amount unit name]
+    )
   end
 
   def render_message(message, status)
