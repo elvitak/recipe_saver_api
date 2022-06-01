@@ -31,8 +31,8 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
         recipe: {
           title: 'new recipe',
           ingredients_attributes: [
-            { id: ingredient1.id, amount: 100, unit: 'ml', name: 'milk' },
-            { amount: 10, unit: 'grams', name: 'sugar' },
+            { id: ingredient1.id, amount: 100, unit: 'ml', name: 'milk', _destroy: true },
+            { amount: 10, unit: 'grams', name: 'sugar', _destroy: true },
             { amount: 500, unit: 'grams', name: 'chocolate' }
           ],
           instructions_attributes: [
@@ -61,8 +61,6 @@ RSpec.describe 'PUT /api/recipes/:id', type: :request do
         { amount: i.amount, unit: i.unit, name: i.name }
       end
       expect(ingredients).to eq [
-        { amount: 100, unit: 'ml', name: 'milk' },
-        { amount: 10, unit: 'grams', name: 'sugar' },
         { amount: 500, unit: 'grams', name: 'chocolate' }
       ]
     end
