@@ -7,7 +7,7 @@ describe 'POST /api/recipes', type: :request do
            params: {
              recipe: {
                title: 'nom nom',
-               ingredients_attributes: [{  amount: 100, unit: 'grams', name: 'sugar' },
+               ingredients_attributes: [{  amount: 100, unit: 'grams', name: 'sugar', _destroy: true },
                                         { amount: 500, unit: 'grams', name: 'chocolate' }],
                instructions_attributes: [{ instruction: 'mix together' }, { instruction: 'bake' }],
                image: 'data:image/image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEBCAMAAAD1kWivAAADAFB'
@@ -32,6 +32,15 @@ describe 'POST /api/recipes', type: :request do
 
     it 'is expected to return aproval message that recipe was created' do
       expect(response_json['message']).to eq 'Recipe was created successfully'
+    end
+
+    it 'is expected to delete ingredient that has destroy attribute' do
+      ingredients = @recipe.ingredients.map do |i|
+        { amount: i.amount, unit: i.unit, name: i.name }
+      end
+      expect(ingredients).to eq [
+        { amount: 500, unit: 'grams', name: 'chocolate' }
+      ]
     end
   end
 

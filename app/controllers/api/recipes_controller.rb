@@ -65,7 +65,7 @@ class Api::RecipesController < ApplicationController
     params[:recipe].permit(
       :title,
       instructions_attributes: %i[id instruction _destroy],
-      ingredients_attributes: %i[id amount unit name]
+      ingredients_attributes: %i[id amount unit name _destroy]
     )
   end
 
